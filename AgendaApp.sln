@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendaApp.API", "AgendaApp.API\AgendaApp.API.csproj", "{4B5DC488-D327-46AD-9387-467F2A5D699D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APPLICATION", "APPLICATION", "{5889B721-7292-4844-BF09-4CEE01F4D18E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DOMAIN", "DOMAIN", "{2C22AD94-211C-4356-AF00-F1E4A51D6521}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TESTS", "TESTS", "{C2E28A0E-8254-42E0-B8AA-09ED43E41C09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "INFRASTRUCTURE", "INFRASTRUCTURE", "{964B995B-7D5E-4727-AA5D-34389D14E9F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaApp.Domain", "AgendaApp.Domain\AgendaApp.Domain.csproj", "{A406CDEB-A1BC-4799-A049-0EB381BEA766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaApp.Infra.Data", "AgendaApp.Infra.Data\AgendaApp.Infra.Data.csproj", "{999B6A40-3F70-4583-88A4-253E31856FF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaApp.Tests", "AgendaApp.Tests\AgendaApp.Tests.csproj", "{C71013EC-E2BE-459B-A64A-FB2964FDBEAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B5DC488-D327-46AD-9387-467F2A5D699D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B5DC488-D327-46AD-9387-467F2A5D699D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B5DC488-D327-46AD-9387-467F2A5D699D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B5DC488-D327-46AD-9387-467F2A5D699D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A406CDEB-A1BC-4799-A049-0EB381BEA766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A406CDEB-A1BC-4799-A049-0EB381BEA766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A406CDEB-A1BC-4799-A049-0EB381BEA766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A406CDEB-A1BC-4799-A049-0EB381BEA766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{999B6A40-3F70-4583-88A4-253E31856FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{999B6A40-3F70-4583-88A4-253E31856FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{999B6A40-3F70-4583-88A4-253E31856FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{999B6A40-3F70-4583-88A4-253E31856FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71013EC-E2BE-459B-A64A-FB2964FDBEAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71013EC-E2BE-459B-A64A-FB2964FDBEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71013EC-E2BE-459B-A64A-FB2964FDBEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71013EC-E2BE-459B-A64A-FB2964FDBEAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B5DC488-D327-46AD-9387-467F2A5D699D} = {5889B721-7292-4844-BF09-4CEE01F4D18E}
+		{A406CDEB-A1BC-4799-A049-0EB381BEA766} = {2C22AD94-211C-4356-AF00-F1E4A51D6521}
+		{999B6A40-3F70-4583-88A4-253E31856FF1} = {964B995B-7D5E-4727-AA5D-34389D14E9F6}
+		{C71013EC-E2BE-459B-A64A-FB2964FDBEAE} = {C2E28A0E-8254-42E0-B8AA-09ED43E41C09}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C052A30F-ABA1-4591-ABE0-D1E9B54BE8DD}
+	EndGlobalSection
+EndGlobal
