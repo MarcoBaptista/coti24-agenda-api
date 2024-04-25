@@ -13,6 +13,7 @@ namespace AgendaApp.API.Mappings
         public AutoMapperConfig()
         {
             CreateMap<TarefasPostRequestModel, Tarefa>();
+            CreateMap<TarefasPutRequestModel, Tarefa>();
             CreateMap<Tarefa, TarefasGetResponseModel>();
         }
     }

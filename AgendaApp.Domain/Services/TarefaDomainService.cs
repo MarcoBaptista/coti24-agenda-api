@@ -1,4 +1,5 @@
 ﻿using AgendaApp.Domain.Entities;
+using AgendaApp.Domain.Exceptions;
 using AgendaApp.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,34 @@ namespace AgendaApp.Domain.Services
         }
         #endregion
 
-        public void Adicionar(Tarefa tarefa)
+        public Tarefa Adicionar(Tarefa tarefa)
         {
+            tarefa.Id = Guid.NewGuid();
+            tarefa.CadastradoEm = DateTime.Now;
+            tarefa.UltimaAtualizacaoEm = DateTime.Now;
+            tarefa.Ativo = true;
+
             _tarefaRepository.Add(tarefa);
+
+            return tarefa;
         }
 
-        public void Atualizar(Tarefa tarefa)
+        public Tarefa Atualizar(Tarefa tarefa)
         {
-            _tarefaRepository.Update(tarefa);
+            var tarefaEdicao = _tarefaRepository.GetById(tarefa.Id.Value);
+            DomainException.When(tarefaEdicao == null,
+               "Tarefa é inválida para edição! Verifique o ID informado.");
+
+            tarefaEdicao.Nome = tarefa.Nome;
+            tarefaEdicao.Descricao = tarefa.Descricao;
+            tarefaEdicao.DataHora = tarefa.DataHora;
+            tarefaEdicao.Prioridade = tarefa.Prioridade;
+            tarefaEdicao.UltimaAtualizacaoEm = DateTime.Now;
+            
+
+            _tarefaRepository.Update(tarefaEdicao);
+
+            return tarefaEdicao;
         }
 
         public List<Tarefa> Consultar(DateTime dataMin, DateTime dataMax)
@@ -35,10 +56,15 @@ namespace AgendaApp.Domain.Services
             return _tarefaRepository.Get(dataMin, dataMax); 
         }
 
-        public void Excluir(Guid id)
+        public Tarefa Excluir(Guid id)
         {
-            var tarefa = _tarefaRepository.GetById(id);
-            _tarefaRepository.Delete(tarefa);
+            var tarefaExclusao = _tarefaRepository.GetById(id);
+            DomainException.When(tarefaExclusao == null,
+               "Tarefa é inválida para exclusão! Verifique o ID informado.");
+                       
+            _tarefaRepository.Delete(tarefaExclusao);
+
+            return tarefaExclusao;
         }
 
         public Tarefa? ObterPorId(Guid id)

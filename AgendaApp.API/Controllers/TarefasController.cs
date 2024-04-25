@@ -1,6 +1,7 @@
 ﻿using AgendaApp.API.Models;
 using AgendaApp.Domain.Entities;
 using AgendaApp.Domain.Entities.Enums;
+using AgendaApp.Domain.Exceptions;
 using AgendaApp.Domain.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -28,69 +29,125 @@ namespace AgendaApp.API.Controllers
         [ProducesResponseType(typeof(TarefasGetResponseModel), 201)]
         public IActionResult Post(TarefasPostRequestModel model)
         {
-            var tarefa = _mapper.Map<Tarefa>(model);    
-            tarefa.Id = Guid.NewGuid();
-            tarefa.CadastradoEm = DateTime.Now;
-            tarefa.UltimaAtualizacaoEm = DateTime.Now;
-            tarefa.Ativo = true;
-            
-            _tarefaDomainService.Adicionar(tarefa);
+            try
+            {
+                var tarefa = _tarefaDomainService.Adicionar(_mapper.Map<Tarefa>(model));
+                var response = _mapper.Map<TarefasGetResponseModel>(tarefa);
+                return StatusCode(201, response);
+            }
+            catch (DomainException ex)
+            {
+                //http 422 (UNPROCESSABLE CONTENT)
+                return StatusCode(422, new { message = ex.Message });
+            }
+            catch (Exception e)
+            {
+                //http 500 (internal server error)
+                return StatusCode(500, new { message = e.Message});
 
-            var response = _mapper.Map<TarefasPostRequestModel>(tarefa);
-            return StatusCode( 201, response);
-
+            }
+                    
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(TarefasGetResponseModel), 200)]
         public IActionResult Put(TarefasPutRequestModel model)
         {
-            var tarefa = _mapper.Map<Tarefa>(model);
-            tarefa.UltimaAtualizacaoEm = DateTime.Now;
-            
-            _tarefaDomainService.Atualizar(tarefa);
+            try
+            {
+                var tarefa = _tarefaDomainService.Atualizar(_mapper.Map<Tarefa>(model));
 
-            var response = _mapper.Map<TarefasGetResponseModel>(tarefa);
-            return StatusCode(200, response);
+                var response = _mapper.Map<TarefasGetResponseModel>(tarefa);
+                return StatusCode(200, response);
+
+            }
+            catch (DomainException ex)
+            {
+                //http 422 (UNPROCESSABLE CONTENT)
+                return StatusCode(422, new { message = ex.Message });
+            }
+            catch (Exception e)
+            {
+
+                //htttp 500 (internal server error;
+                return StatusCode(500, new { message = e.Message });
+
+            }
+           
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(TarefasGetResponseModel), 200)]
         public IActionResult Delete(Guid id)
         {
-            var tarefa = _tarefaDomainService.ObterPorId(id);
-            tarefa.Ativo = false;
+            try
+            {
+                var tarefa = _tarefaDomainService.Excluir(id);
+                var response = _mapper.Map<TarefasGetResponseModel>(tarefa);
 
-            _tarefaDomainService.Excluir(id);
+                return StatusCode(200, response);
 
-            var response = _mapper.Map<TarefasGetResponseModel>(tarefa);
+            }
+            catch (DomainException ex)
+            {
+                //http 422 (UNPROCESSABLE CONTENT)
+                return StatusCode(422, new { message = ex.Message });
+            }
+            catch (Exception e)
+            {
+                //htttp 500 (internal server error;
+                return StatusCode(500, new { message = e.Message });
+            }
 
-            return StatusCode(200, response);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(TarefasGetResponseModel), 200)]
         public IActionResult Get(Guid id)
         {
-            var tarefa = _tarefaDomainService.ObterPorId(id);
-            var response = _mapper.Map<TarefasGetResponseModel>(tarefa);
+            try
+            {
+                var tarefa = _tarefaDomainService.ObterPorId(id);
+                if (tarefa == null)
+                    return StatusCode(204);
+                
+                var response = _mapper.Map<TarefasGetResponseModel>(tarefa);
 
-            return StatusCode(200, response);
+                return StatusCode(200, response);
+            }
+            catch (Exception e)
+            {
+
+                //htttp 500 (internal server error;
+                return StatusCode(500, new { message = e.Message });
+            }
+            
+          
         }
 
         [HttpGet ("{dataMin}/{dataMax}")]
         [ProducesResponseType(typeof(List<TarefasGetResponseModel>), 200)]
         public IActionResult Get(DateTime dataMin, DateTime dataMax) 
         {
-            var tarefas = _tarefaDomainService.Consultar(dataMin, dataMax);
-
-            var response = new List<TarefasGetResponseModel>(); 
-            foreach (var tarefa in tarefas)
+            try
             {
-               response.Add(_mapper.Map<TarefasGetResponseModel>(tarefa));
-            };
+                var tarefas = _tarefaDomainService.Consultar(dataMin, dataMax);
 
-            return StatusCode(200, response);
+                if (!tarefas.Any())
+                    return StatusCode(204);//no content
+
+                var response = _mapper.Map<List<TarefasGetResponseModel>>(tarefas);
+                return StatusCode(200, response);
+
+            }
+            catch (Exception e)
+            {
+
+                //htttp 500 (internal server error;
+                return StatusCode(500, new { message = e.Message });
+            }
+
+           
         }
 
 

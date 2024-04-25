@@ -12,9 +12,9 @@ namespace AgendaApp.Domain.Services
     /// </summary>
     public interface ITarefaDomainService
     {
-        void Adicionar(Tarefa tarefa);
-        void Atualizar(Tarefa tarefa);
-        void Excluir(Guid Id);
+        Tarefa Adicionar(Tarefa tarefa);
+        Tarefa Atualizar(Tarefa tarefa);
+        Tarefa Excluir(Guid Id);
         List<Tarefa> Consultar(DateTime dataMin, DateTime dataMax);
         Tarefa? ObterPorId(Guid id);
 

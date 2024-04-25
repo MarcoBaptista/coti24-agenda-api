@@ -26,6 +26,6 @@ namespace AgendaApp.API.Models
 
 
         [Required(ErrorMessage = "Por favor infome a prioridade da tarefa.")]
-        public int? Prioridadade { get; set; }
+        public int? Prioridade { get; set; }
     }
 }
